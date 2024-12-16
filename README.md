@@ -1,50 +1,32 @@
-# React + TypeScript + Vite
+# 🚀 Planeo — Gestión de Tareas para Equipos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Planeo** es una aplicación de gestión de tareas diseñada para facilitar la colaboración entre equipos, mejorar la productividad y asegurar que todos los miembros estén alineados con los objetivos del proyecto.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📝 **Características Principales**
 
-## Expanding the ESLint configuration
+✅ **Gestión de Tareas**: Crea, asigna y organiza tareas de manera eficiente.  
+✅ **Colaboración en Tiempo Real**: Actualizaciones en vivo para que tu equipo siempre esté sincronizado.  
+✅ **Tableros Personalizables**: Visualiza tareas con vistas de lista, kanban o calendario. 
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## 🛠️ **Tecnologías Utilizadas**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **Frontend**: React + Vite + TailwindCSS  
+- **Backend**: Node.js + Express  
+- **Base de Datos**: PostgreSQL  
+- **Autenticación**: JWT (JSON Web Tokens)  
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 📞 **Contacto**
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Para cualquier duda o sugerencia, puedes contactarnos en:
+
+- ✉️ **Email**: roger-d-n@hotmail.com  
+
+---
+
+¡Gracias por usar **Planeo**! 🎉
