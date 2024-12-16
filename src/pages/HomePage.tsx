@@ -3,20 +3,21 @@ import {
   Footer,
   HeaderHome,
   MainHome,
-  FooterHome} from '../components'
+  FooterHome,
+} from '../components';
 
 function HomePage() {
-    return (
-      <>
-        <Header/>
-        <HeaderHome/>
-       
-        <MainHome/>
-        
-        <FooterHome/>
-        <Footer/>
-      </>
-    );
+  return (
+    <>
+      <Header />
+      <HeaderHome />
+
+      <MainHome />
+
+      <FooterHome />
+      <Footer />
+    </>
+  );
 }
 
 export default HomePage;
