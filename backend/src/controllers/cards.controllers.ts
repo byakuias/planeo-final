@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { eq, inArray, sql, SQL } from "drizzle-orm";
+import { eq, inArray, sql, SQL } from 'drizzle-orm';
 import { cards } from '../db/schema';
 import db from '../db/connection';
 
@@ -7,7 +7,7 @@ import db from '../db/connection';
 export const getAllCards = async (req: Request, res: Response) => {
   try {
     const allCards = await db.select().from(cards);
-    res.status(200).send(allCards);  // Usamos send en vez de json
+    res.status(200).send(allCards); // Usamos send en vez de json
   } catch (error) {
     res.status(500).send({ error: 'Error fetching cards' });
   }
@@ -30,14 +30,29 @@ export const getCardById = async (req: Request, res: Response) => {
   }
 };
 
-
 // Crear una nueva tarjeta
 export const createCard = async (req: Request, res: Response) => {
   try {
-    const { cardName, description, createdBy, assignedTo, status = 'todo', order } = req.body; // Ahora se incluye el status
+    const {
+      cardName,
+      description,
+      createdBy,
+      assignedTo,
+      status = 'todo',
+      order,
+      projectId,
+    } = req.body; // Ahora se incluye el status
     const [newCard] = await db
       .insert(cards)
-      .values({ cardName, description, createdBy, assignedTo, status, order })
+      .values({
+        cardName,
+        description,
+        createdBy,
+        assignedTo,
+        status,
+        order,
+        projectId,
+      })
       .returning();
     res.status(201).send(newCard);
   } catch (error) {
@@ -45,28 +60,35 @@ export const createCard = async (req: Request, res: Response) => {
   }
 };
 
-
 // Actualizar una tarjeta por ID
 export const updateCard = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { cardName, description, createdBy, assignedTo, status, order } = req.body; 
+    const { cardName, description, createdBy, assignedTo, status, order } =
+      req.body;
 
     const updatedAt = new Date().toISOString();
-  
+
     const updatedCard = await db
       .update(cards)
-      .set({ cardName, description, createdBy, assignedTo, status, order, updatedAt })
+      .set({
+        cardName,
+        description,
+        createdBy,
+        assignedTo,
+        status,
+        order,
+        updatedAt,
+      })
       .where(eq(cards.id, Number(id)))
       .returning();
 
-    if (!updatedCard.length)  res.status(404).send({ error: 'Card not found' });
+    if (!updatedCard.length) res.status(404).send({ error: 'Card not found' });
     res.status(200).send(updatedCard[0]);
   } catch (error) {
     res.status(500).send({ error: 'Error updating card' });
   }
 };
-
 
 // Eliminar una tarjeta por ID
 export const deleteCard = async (req: Request, res: Response) => {
@@ -77,49 +99,14 @@ export const deleteCard = async (req: Request, res: Response) => {
     const deletedCard = await db
       .delete(cards)
       .where(eq(cards.id, Number(id)))
-      .returning(); 
+      .returning();
 
     if (!deletedCard.length) {
-     res.status(404).send({ error: 'Card not found' });  // Usamos send
+      res.status(404).send({ error: 'Card not found' }); // Usamos send
     }
 
-    res.status(200).send({ message: 'Card deleted successfully', deletedCard });  // Usamos send
+    res.status(200).send({ message: 'Card deleted successfully', deletedCard }); // Usamos send
   } catch (error) {
     res.status(500).send({ error: 'Error deleting card' });
-  }
-};
-
-
-
-export const updateAllCards = async (updatedCards: Array<{ id: number; status: string }>) => {
-  // Verificamos que el array no esté vacío
-  if (updatedCards.length === 0) {
-    console.log("No tasks to update");
-    return;
-  }
-
-  const sqlChunks: SQL[] = [];
-  const ids: number[] = [];
-
-  sqlChunks.push(sql`(case`);
-  for (const card of updatedCards) {
-    sqlChunks.push(sql`when ${cards.id} = ${card.id} then ${card.status}`);
-    ids.push(card.id);
-  }
-  sqlChunks.push(sql`end)`);
-
-  const finalSql: SQL = sql.join(sqlChunks, sql.raw(' '));
-
-  try {
-    // Realizamos la actualización masiva en la base de datos
-    await db.update(cards)
-      .set({ status: finalSql })
-      .where(inArray(cards.id, ids));
-      
-    const updatedTasks = await db.select().from(cards).where(inArray(cards.id, ids));
-    // Retornamos las tareas actualizadas
-    return updatedTasks;
-  } catch (error) {
-    console.error('Error al actualizar las tareas:', error);
   }
 };
