@@ -8,7 +8,7 @@ const RegisterPage: React.FC = () => {
   return (
     <div className="h-screen bg-white-100 flex flex-col">
       <Header />
-      <div className="flex-1 bg-custom-gradient flex items-center justify-center">
+      <div className="flex-1 bg-custom-gradient flex items-center justify-center py-5">
         <div className="flex flex-col lg:flex-row items-center justify-center max-w-5xl w-full px-4 lg:px-0">
           <img
             src={imagen1}

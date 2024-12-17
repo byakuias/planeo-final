@@ -1,5 +1,5 @@
 import { Request, RequestHandler, Response } from 'express';
-import { and, eq } from 'drizzle-orm';
+import { and, ConsoleLogWriter, eq } from 'drizzle-orm';
 import bcrypt from 'bcrypt';
 
 import db from '../db/connection';
@@ -139,12 +139,13 @@ async function createProjectForUser(userId: number, projectName: string) {
     .innerJoin(userProjects, eq(userProjects.projectId, projects.id))
     .where(and(eq(userProjects.userId, userId), eq(projects.name, projectName)))
     .limit(1);
+  console.log('1');
 
   if (existingProject.length > 0) {
     // Paso 2: Si ya existe, devolver un mensaje de error
     return { message: 'No se puede crear un proyecto con el mismo nombre.' };
   }
-
+  console.log('2');
   // Paso 3: Crear el nuevo proyecto
   const newProject = await db
     .insert(projects)
@@ -152,12 +153,13 @@ async function createProjectForUser(userId: number, projectName: string) {
       name: projectName,
     })
     .returning({ id: projects.id, name: projects.name });
-
+  console.log('3');
   // Paso 4: Asociar el proyecto al usuario en la tabla intermedia
   await db.insert(userProjects).values({
     userId: userId,
     projectId: newProject[0].id,
   });
+  console.log('4');
 
   return newProject[0];
 }

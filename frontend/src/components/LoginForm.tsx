@@ -12,13 +12,13 @@ const LoginForm = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/auth/login', {
+      const response = await axios.post('http://localhost:3000/users/login', {
         email,
         password,
       });
       const token = response.data.token;
       localStorage.setItem('token', token);
-      navigate('/profile');
+      navigate('/board');
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
     }
