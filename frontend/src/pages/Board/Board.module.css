@@ -1,12 +1,11 @@
 .container {
-    position: relative;
-  }
-  
-  .content {
-    display: flex;
-  }
-  
-  .main {
-    width: 100%;
-  }
-  
+  position: relative;
+}
+
+.content {
+  display: flex;
+}
+
+.main {
+  width: 100%;
+}

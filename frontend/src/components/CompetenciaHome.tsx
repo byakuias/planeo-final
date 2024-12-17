@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FaTrello,  FaSlack } from "react-icons/fa"; // FontAwesome
-import { MdWork, MdHome, MdSettings } from "react-icons/md"; // Material Design
-import { IoIosAlbums } from "react-icons/io"; // Ionicons
-import { HiOutlineChartBar } from "react-icons/hi"; // Heroicons
+import { FaTrello,  FaSlack } from "react-icons/fa"; 
+import { MdWork, MdHome, MdSettings } from "react-icons/md"; 
+import { IoIosAlbums } from "react-icons/io"; 
+import { HiOutlineChartBar } from "react-icons/hi"; 
 import { AnimatePresence, motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 
-// Tipamos los props para el componente LogoRolodex
 interface LogoRolodexProps {
-  items: React.ReactNode[]; // Array de elementos React (iconos o componentes)
+  items: React.ReactNode[]; 
 }
 
 const CompetenciaHome: React.FC = () => {

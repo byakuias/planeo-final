@@ -6,14 +6,21 @@ import { useCards } from "../../../hooks/useCards";
 import { ImCancelCircle } from "react-icons/im";
 import { Card, NewCardType } from "../../../types/types";
 
-const Kanban: React.FC = () => {
+interface Props {
+  projectId: number | undefined;
+}
+
+const Kanban = ({ projectId }: Props) => {
   const { cards, createCard, deleteCard, updateCard, getAllCards } = useCards();
 
-  const [cardsContainer, setCardsContainer] = useState<Card[]>(cards);
+  const [cardsContainer, setCardsContainer] = useState<Card[]>([]);
 
   useEffect(() => {
-    setCardsContainer(cards); // Sincroniza cuando cambian las tarjetas del contexto
-  }, [cards]);
+    const cardsByProject = cards.filter(
+      (cards) => cards.projectId === projectId
+    );
+    setCardsContainer(cardsByProject); // Sincroniza cuando cambian las tarjetas del contexto
+  }, [cards, projectId]);
 
   const columns: ("todo" | "in-progress" | "done")[] = [
     "todo",
@@ -197,12 +204,14 @@ const Kanban: React.FC = () => {
       setDraggedTaskId(parseInt(target.dataset.id || "", 10)); // Almacenamos el ID de la tarea
     } else if (target.classList.contains(styles.column)) {
       // Si estamos sobre una columna, solo guardamos la posición "columna"
-      const taskList = target.querySelectorAll(`.${styles.task}`);
-      if (taskList.length > 0) {
-        const lastTask = taskList[taskList.length - 1] as HTMLElement;
-        setDraggedPosition("column");
-        setDraggedTaskId(parseInt(lastTask.dataset.id || "", 10)); // Almacenamos el ID de la última tarea
-      }
+      // const taskList = target.querySelectorAll(`.${styles.task}`);
+      // if (taskList.length >= 0) {
+      // const lastTask = taskList[taskList.length - 1] as HTMLElement;
+      setDraggedPosition("column");
+      //   setDraggedTaskId(parseInt(lastTask.dataset.id || "", 10)); // Almacenamos el ID de la última tarea
+      // }
+    } else {
+      setDraggedPosition("column");
     }
   };
 
@@ -232,8 +241,7 @@ const Kanban: React.FC = () => {
   const handleSaveNewCard = async () => {
     if (!newCard) return;
     try {
-      const createdCard = await createCard(newCard);
-      console.log(createCard);
+      const createdCard = await createCard({ ...newCard, projectId });
       setCardsContainer((prevCards) => [...prevCards, createdCard]);
       setNewCard(null); // Limpiar el estado después de guardar
       await getAllCards();
@@ -246,17 +254,10 @@ const Kanban: React.FC = () => {
 
   const [editCardForm, setEditCardForm] = useState<Card | null>(null);
 
-  const handleChangeInputs = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    isEditing: boolean
-  ) => {
+  const handleEditCardInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    if (isEditing) {
-      setEditCardForm((prev) => (prev ? { ...prev, [name]: value } : null));
-    } else {
-      setNewCard((prev) => (prev ? { ...prev, [name]: value } : null));
-    }
+    setEditCardForm((prev) => (prev ? { ...prev, [name]: value } : null));
   };
 
   const handleEditCard = (card: Card) => {
@@ -300,9 +301,9 @@ const Kanban: React.FC = () => {
               .filter((card) => card.status === column)
               .sort((a, b) => a.order - b.order)
               .map((task) => (
-                <div
-                  key={task.id}
-                  className={`
+                <div key={task.id} className={styles.borderContainer}>
+                  <div
+                    className={`
                 ${
                   draggedTaskId === task.id && draggedPosition === "before"
                     ? styles.taskBefore
@@ -313,7 +314,7 @@ const Kanban: React.FC = () => {
                     ? styles.taskAfter
                     : ""
                 }`}
-                >
+                  ></div>
                   {editCardForm &&
                   editCardForm.status === column &&
                   editCardForm.id === task.id ? (
@@ -324,14 +325,14 @@ const Kanban: React.FC = () => {
                           name="cardName"
                           placeholder="Edit card name"
                           value={editCardForm.cardName}
-                          onChange={(e) => handleChangeInputs(e, true)}
+                          onChange={(e) => handleEditCardInput(e)}
                         />
                         <input
                           className={styles.description}
                           name="description"
                           placeholder="Edit description"
                           value={editCardForm.description}
-                          onChange={(e) => handleChangeInputs(e, true)}
+                          onChange={(e) => handleEditCardInput(e)}
                         />
                       </div>
                       <div className={styles.newCardButtons}>
@@ -386,13 +387,17 @@ const Kanban: React.FC = () => {
                   className={styles.title}
                   placeholder="Card name"
                   value={newCard.cardName}
-                  onChange={(e) => handleChangeInputs(e, false)}
+                  onChange={(e) =>
+                    setNewCard({ ...newCard, cardName: e.target.value })
+                  }
                 />
                 <input
                   className={styles.description}
                   placeholder="Description"
                   value={newCard.description}
-                  onChange={(e) => handleChangeInputs(e, false)}
+                  onChange={(e) =>
+                    setNewCard({ ...newCard, description: e.target.value })
+                  }
                 />
               </div>
               <div className={styles.newCardButtons}>

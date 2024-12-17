@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { TiThMenu, TiTimes } from "react-icons/ti"; 
+import { FaPaperPlane } from "react-icons/fa";
 import Menu from "./Menu";
-import Logo from "./Logo";
+import { Link } from "react-router-dom";
 
 function Headers() {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(false);
+
   // Función para alternar el sidebar
   function toggleSidebar() {
     setIsOpenSidebar(!isOpenSidebar);
@@ -13,11 +15,16 @@ function Headers() {
   return (
     <>
       {/* Barra superior */}
-      <div className="bg-white flex justify-between flex-row items-center py-2 sticky top-0 z-10 w-full">
+      
+      <div className="bg-white flex justify-between flex-row items-center py-4 sticky top-0 z-10 w-full">
+      <Link to="/">
         <div className="flex flex-row items-center px-2">
-          <Logo />
-          <h2 className="text-3xl font-bold mx-2 p-2">Planeo</h2>
+          
+            <FaPaperPlane size={30} />
+            <h2 className="text-3xl font-bold mx-2 p-2">Planeo</h2>
+          
         </div>
+        </Link>
 
         {/* Menú para pantallas grandes */}
         <div className="hidden sm:block">

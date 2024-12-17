@@ -23,6 +23,13 @@ export type Card = {
   createdAt: string;
   updatedAt: string;
   order: number;
+  projectId?: number;
 };
 
 export type NewCardType = Omit<Card, "id" | "createdAt" | "updatedAt">;
+
+
+export type Project = {
+  id: number;
+  name: string;
+}

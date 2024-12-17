@@ -9,6 +9,7 @@ import Board from "./pages/Board/Board";
 import Error404Page from "./pages/Error404Page";
 import AuthProvider from "./context/auth/AuthProvider";
 import CardsProvider from "./context/cards/CardsProvider";
+import SobreNosotros from './pages/SobreNosotros';
 // import PrivateRoute from "./components/PrivateRoute";
 
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/sobre-nosotros" element={<SobreNosotros />} />
           {/* <PrivateRoute> */}
             <Route path="/board" element={<Board />} />
           {/* </PrivateRoute> */}

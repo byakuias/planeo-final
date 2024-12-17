@@ -17,8 +17,8 @@ function Card({ bgColor, icon, title, description}: CardProps) {
       </div>
 
       <div className="p-4">
-        <h2 className="text-lg font-semibold">{title}</h2>
-        <p className="text-sm">{description}</p>
+        <h2 className="text-xl mb-2 font-semibold">{title}</h2>
+        <p className="text-sm text-justify">{description}</p>
       </div>
     </div>
   );

@@ -31,7 +31,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     logoutService()
-      .then(() => setIsAuthenticated(false))
+      .then(() => {setIsAuthenticated(false); checkSession()})
       .catch((error) => {
         alert(error.message || "Error al cerrar sesión");
       });

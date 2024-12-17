@@ -2,7 +2,7 @@ import styles from "./SecondaryNavbar.module.css";
 import { TbUserShare } from "react-icons/tb";
 
 interface Props {
-  projectName: string;
+  projectName: string | undefined;
 }
 
 const SecondaryNavbar = ({ projectName }: Props) => {

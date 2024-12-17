@@ -2,9 +2,9 @@ import {
   Header,
   Footer,
 } from '../components';
-import PlaneAndClouds from "../components/PlaneAndClounds/PlaneAndClounds";
-import CardGrid from '../components/CardGrid/CardGrid';
-import PlaneAnimation from "../components/PlaneAnimation/PlaneAnimation";
+import PlaneAndClouds from "../components/PlaneAndClounds";
+import CardGrid from '../components/CardGrid';
+import PlaneAnimation from "../components/PlaneAnimation";
 import SectionAbout from "../components/Section/SectionAbout";
 import Technologies from '../components/Technologies';
 

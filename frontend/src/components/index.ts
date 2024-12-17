@@ -5,9 +5,11 @@ import Logo from './Logo';
 import HeaderHome from './HeaderHome';
 import MainHome from './MainHome';
 import FooterHome from './FooterHome';
-import Section from './Section';
+import Section from './Section/Section';
 import Cards from './Card';
 import Banner from './Banner';
+import SpinningBoxText from './SpinningBoxText';
+import VotingPoll from './VotingPoll';
 
 
 export {
@@ -20,5 +22,7 @@ export {
     FooterHome,
     Section,
     Cards,
-    Banner
+    Banner,
+    SpinningBoxText,
+    VotingPoll  
 };

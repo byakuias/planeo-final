@@ -1,0 +1,78 @@
+.container {
+  background-color: #003576;
+  width: 100%;
+}
+
+.buttonCreate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+
+/* Modal overlay (fondo oscuro) */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegura que el modal esté encima de todo */
+}
+
+/* Modal container (formulario) */
+.modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  color: #000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+  margin-bottom: 15px;
+
+}
+
+.modal input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.modal button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #003576;
+  color: white;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.modal button:hover {
+  background-color: #002451;
+}
+
+.modal button:last-child {
+  background-color: #dc3545;
+}
+
+.modal button:last-child:hover {
+  background-color: #c82333;
+}
+

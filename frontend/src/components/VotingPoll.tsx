@@ -10,24 +10,24 @@ interface Vote {
 const VotingPoll: React.FC = () => {
   const [votes, setVotes] = useState<Vote[]>([
     {
-      title: "¿Te gustaría ver tus tareas por prioridad?",
+      title: "Ver tus tareas por prioridad",
       votes: 1,
       color: "bg-indigo-500",
     },
     {
-      title: "¿Prefieres ver un resumen de las tareas de todos los proyectos?",
+      title: "Ver un resumen de las tareas de todos los proyectos",
       votes: 2,
       color: "bg-fuchsia-500",
     },
     {
-      title: "¿Te gustaría recibir un recordatorio de tareas pendientes?",
+      title: "Recibir un recordatorio de tareas pendientes",
       votes: 3,
       color: "bg-violet-500",
     },
   ]);
 
   return (
-    <section className="bg-slate-900 px-4 py-12">
+    <section className="bg-blue-900 px-4 py-12">
       <div className="mx-auto grid max-w-4xl grid-cols-1 gap-2 md:grid-cols-[1fr_400px] md:gap-12">
         <Options votes={votes} setVotes={setVotes} />
         <Bars votes={votes} />
@@ -37,7 +37,7 @@ const VotingPoll: React.FC = () => {
 };
 
 const Options = ({ votes, setVotes }: { votes: Vote[]; setVotes: React.Dispatch<React.SetStateAction<Vote[]>> }) => {
-  const totalVotes = votes.reduce((acc, cv) => acc + cv.votes, 0);
+ 
 
   const handleIncrementVote = (vote: Vote) => {
     const newVote = { ...vote, votes: vote.votes + 1 };
@@ -62,17 +62,7 @@ const Options = ({ votes, setVotes }: { votes: Vote[]; setVotes: React.Dispatch<
           </motion.button>
         ))}
       </div>
-      <div className="flex items-center justify-between">
-        <span className="mb-2 italic text-slate-400">{totalVotes} votos</span>
-        <motion.button
-          whileHover={{ scale: 1.015 }}
-          whileTap={{ scale: 0.985 }}
-          onClick={() => setVotes((pv) => pv.map((v) => ({ ...v, votes: 0 })))}
-          className="rounded-sm bg-slate-700 px-2 py-1.5 text-sm font-medium text-slate-200"
-        >
-          Restablecer votos
-        </motion.button>
-      </div>
+      
     </div>
   );
 };
