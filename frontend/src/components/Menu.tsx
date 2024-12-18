@@ -32,6 +32,9 @@ function Menu(props: MenuProps) {
       <NavLink to="/sobre-nosotros" className={menuClases}>
         Sobre Nosotros
       </NavLink>
+      <NavLink to="/contact" className={menuClases}>
+        Contacto
+      </NavLink>
       {userLogged && (
         <NavLink to="/board" className={menuClases}>
           Tablero
