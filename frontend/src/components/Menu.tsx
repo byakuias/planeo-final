@@ -15,14 +15,14 @@ function Menu(props: MenuProps) {
   const classes = `
     ${
       sidebar
-        ? 'flex flex-col  p-4 gap-6 h-full'
-        : 'absolute top-8 right-4 flex gap-4 items-baseline'
+        ? 'flex flex-col   p-4 gap-6 h-full'
+        : 'absolute top-8 right-4 flex gap-4 '
     }
     ${vertical ? 'flex-col items-center' : ''}
     text-l font-bold ${className}
   `;
 
-  const menuClases = `hover:text-blue-500 hover:bg-white p-2`;
+  const menuClases = `hover:text-blue-500 hover:bg-white p-2 `;
 
   return (
     <nav className={classes}>

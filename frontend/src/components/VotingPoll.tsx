@@ -47,7 +47,7 @@ const Options = ({ votes, setVotes }: { votes: Vote[]; setVotes: React.Dispatch<
   return (
     <div className="col-span-1 py-12">
       <h3 className="mb-6 text-3xl font-semibold text-slate-50">
-      ¡Tu opinión nos importa! ¿Cómo te gustaría que sea el tablero de tareas?
+       ¿Cómo te gustaría que sea el tablero de tareas?
       </h3>
       <div className="mb-6 space-y-2">
         {votes.map((vote) => (
