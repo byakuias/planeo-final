@@ -18,10 +18,15 @@ const Board = () => {
 
   const handleAddProject = (newProject: Project) => {
     const newProjectList = [...projects, newProject];
+    localStorage.setItem("activeProject", JSON.stringify(newProject));
+    setActiveProject(newProject);
     setProjects(newProjectList);
   };
 
   const switchProject = (id: number) => {
+    if (id === 0) {
+      setActiveProject(null);
+    }
     const activeProject = projects.find((project) => project.id === id);
     if (activeProject) setActiveProject(activeProject);
     localStorage.setItem("activeProject", JSON.stringify(activeProject));
@@ -56,7 +61,7 @@ const Board = () => {
   return (
     <>
     <div className={styles.container}>
-        <Header />
+    <Header />
       <div className={styles.content}>
         <Sidebar
           projects={projects}
@@ -64,16 +69,19 @@ const Board = () => {
           deleteProject={handleDeleteProject}
           addProject={handleAddProject}
           />
-        {projects.length > 0 && (
-          <div className={styles.main}>
-            <SecondaryNavbar projectName={activeProject?.name} />
-            <Kanban projectId={activeProject?.id} />
-          </div>
-        )}
+
+        <div className={styles.main}>
+          {projects.length > 0 && (
+            <>
+              <SecondaryNavbar projectName={activeProject?.name} />
+              <Kanban projectId={activeProject?.id} />
+            </>
+          )}
+        </div>
       </div>
-        <Footer />
+      <Footer />
     </div>
-        </>
+          </>
   );
 };
 

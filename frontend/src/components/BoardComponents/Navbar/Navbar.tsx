@@ -38,7 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({
     }
 
     try {
-      const userId = 1;
+      const userId = 11;
       const response = await fetch("http://localhost:3000/createProject", {
         method: "POST",
         headers: {

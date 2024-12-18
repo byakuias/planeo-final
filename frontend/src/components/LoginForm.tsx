@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaEnvelopeOpenText } from 'react-icons/fa';
 import { RiLockPasswordLine } from 'react-icons/ri';
+import { useAuth } from '../hooks/useAuth';
+
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/users/login', {
-        email,
-        password,
-      });
-      const token = response.data.token;
-      localStorage.setItem('token', token);
+      await login({ email, password });
       navigate('/board');
     } catch (error) {
       console.error('Error al iniciar sesión:', error);

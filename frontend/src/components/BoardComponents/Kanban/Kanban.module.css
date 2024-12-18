@@ -5,13 +5,26 @@
   gap: 20px;
   padding: 20px;
   height: 92vh;
-  background: linear-gradient(
-    135deg,
-    #0085d7 0%,
-    #0092d1 30%,
-    #0094f0 60%,
-    #009dff 85%,
-    #0084ff 100%
+  background-image: linear-gradient(
+    220deg,
+    rgb(110, 22, 182) 0%,
+    hsl(265deg 66% 44%) 6%,
+    hsl(257deg 55% 48%) 12%,
+    hsl(249deg 50% 52%) 18%,
+    hsl(241deg 49% 57%) 24%,
+    hsl(235deg 50% 59%) 29%,
+    hsl(230deg 52% 59%) 35%,
+    hsl(224deg 54% 60%) 41%,
+    hsl(219deg 56% 61%) 47%,
+    hsl(213deg 57% 62%) 53%,
+    hsl(207, 58%, 63%) 59%,
+    hsl(201deg 59% 65%) 65%,
+    hsl(195deg 60% 67%) 71%,
+    hsl(190deg 61% 68%) 76%,
+    hsl(185deg 63% 70%) 82%,
+    hsl(180deg 65% 72%) 88%,
+    hsl(176deg 67% 74%) 94%,
+    hsl(171deg 69% 76%) 100%
   );
 }
 
@@ -33,6 +46,8 @@
 }
 
 .task {
+  position: relative;
+  z-index: 20;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,20 +59,44 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 -2px 4px rgba(0, 0, 0, 0.1),
     -2px 2px 4px rgba(0, 0, 0, 0.1), 2px 2px 4px rgba(0, 0, 0, 0.1);
   cursor: grab;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 14px;
+  margin-top: 14px;
+}
+
+.borderContainer {
+  position: relative;
 }
 
 .taskBefore {
-  border-top: 2px solid rgba(0, 170, 255, 0.8); /* Color #00aaff con opacidad suave */
+  height: 10px;
+  width: 100%;
+  position: absolute;
+  top: -10px;
+  width: 100%;
+  border-top: 2px solid rgba(0, 170, 255, 0.8); 
   border-radius: 2px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .taskAfter {
-  border-bottom: 2px solid rgba(0, 170, 255, 0.8); /* Color #00aaff con opacidad suave */
+  height: 10px;
+  width: 100%;
+  position: absolute;
+  width: 100%;
+  bottom: -10px;
+  border-bottom: 2px solid rgba(0, 170, 255, 0.8);
   border-radius: 2px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.transparentBorder {
+  opacity: 0; 
+  transition: opacity 0.3s ease; 
+}
+
+.visibleBorder {
+  opacity: 1; 
+  transition: opacity 0.3s ease; 
 }
 
 .task:hover {
@@ -173,3 +212,4 @@ input {
 .cancelBtn:hover {
   background-color: rgba(169, 169, 169, 0.45);
 }
+

@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["node"],
     "module": "CommonJS",  // Usa import/export en lugar de require
     "target": "ESNext",  // Opcional, si prefieres las características más modernas de JavaScript
     "esModuleInterop": true,  // Para trabajar con módulos de CommonJS

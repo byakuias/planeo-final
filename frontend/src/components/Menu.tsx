@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { AiOutlineLogout } from 'react-icons/ai';
 
 interface MenuProps {
   className?: string;
@@ -9,7 +10,7 @@ interface MenuProps {
 
 function Menu(props: MenuProps) {
   const { className, vertical, sidebar } = props;
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
 
   const classes = `
     ${
@@ -31,14 +32,14 @@ function Menu(props: MenuProps) {
       <NavLink to="/sobre-nosotros" className={menuClases}>
         Sobre Nosotros
       </NavLink>
-      {/* {isAuthenticated && (
+      {isAuthenticated && (
         <NavLink to="/board" className={menuClases}>
           Tablero
         </NavLink>
-      )} */}
-      <NavLink to="/board" className={menuClases}>
+      )}
+      {/* <NavLink to="/board" className={menuClases}>
         Tablero
-      </NavLink>
+      </NavLink> */}
       {!isAuthenticated && (
         <NavLink to="/login" className={menuClases}>
           Inicia sesión
@@ -52,6 +53,9 @@ function Menu(props: MenuProps) {
           Regístrate!
         </NavLink>
       )}
+      {isAuthenticated && <button className="flex items-center bg-pink-500 bg-opacity-65 text-white text-2xl p-1 rounded-md" onClick={logout}>
+        <AiOutlineLogout />
+      </button>}
     </nav>
   );
 }

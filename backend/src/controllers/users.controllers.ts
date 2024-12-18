@@ -63,16 +63,15 @@ async function register(req: Request, res: Response) {
 
 async function login(req: Request, res: Response) {
   const { success, data: loginUser, error } = LoginSchema.safeParse(req.body);
-
   if (!success) {
     throw new ValidationError(error);
   }
-
+  
   const [user] = await db
-    .select()
-    .from(users)
-    .where(eq(users.email, loginUser.email));
-
+  .select()
+  .from(users)
+  .where(eq(users.email, loginUser.email));
+  
   if (!user) {
     throw new HttpError(404, 'Email or password incorrect');
   }
@@ -81,16 +80,16 @@ async function login(req: Request, res: Response) {
     loginUser.password,
     user.password
   );
-
+  
   if (!isPasswordCorrect) {
     throw new HttpError(404, 'Email or password incorrect');
   }
-
+  
   const userToSend = {
     id: user.id,
     name: user.name,
   };
-
+  
   const token = jwt.sign(userToSend, process.env.TOKEN_SECRET!, {
     expiresIn: 3600,
   });
@@ -139,13 +138,11 @@ async function createProjectForUser(userId: number, projectName: string) {
     .innerJoin(userProjects, eq(userProjects.projectId, projects.id))
     .where(and(eq(userProjects.userId, userId), eq(projects.name, projectName)))
     .limit(1);
-  console.log('1');
 
   if (existingProject.length > 0) {
     // Paso 2: Si ya existe, devolver un mensaje de error
     return { message: 'No se puede crear un proyecto con el mismo nombre.' };
   }
-  console.log('2');
   // Paso 3: Crear el nuevo proyecto
   const newProject = await db
     .insert(projects)
@@ -153,13 +150,11 @@ async function createProjectForUser(userId: number, projectName: string) {
       name: projectName,
     })
     .returning({ id: projects.id, name: projects.name });
-  console.log('3');
   // Paso 4: Asociar el proyecto al usuario en la tabla intermedia
   await db.insert(userProjects).values({
     userId: userId,
     projectId: newProject[0].id,
   });
-  console.log('4');
 
   return newProject[0];
 }

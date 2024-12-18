@@ -6,10 +6,13 @@ import {
   logoutService,
 } from "../../services/authService";
 import AuthContext from "./AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  // const [userName, setUserName] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     checkSession()
@@ -35,6 +38,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       .catch((error) => {
         alert(error.message || "Error al cerrar sesión");
       });
+    navigate('/');
   };
 
   return (

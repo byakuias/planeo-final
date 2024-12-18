@@ -29,7 +29,7 @@ const CreateButton = ({ addProject }: Props) => {
     }
 
     try {
-      const userId = 2; //pasariamos el userID del usuario logueado
+      const userId = 11; //pasariamos el userID del usuario logueado
       const response = await fetch("http://localhost:3000/createProject", {
         method: "POST",
         headers: {

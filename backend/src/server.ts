@@ -68,7 +68,6 @@ app.delete('/projects/:projectId', async (req, res) => {
 app.post('/createProject', async (req, res) => {
   const { userId, projectName } = req.body;
   try {
-    console.log('hola');
     const result = await createProjectForUser(userId, projectName);
     res.status(200).json(result);
   } catch (error) {

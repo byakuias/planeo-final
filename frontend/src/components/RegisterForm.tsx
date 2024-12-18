@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaEnvelopeOpenText, FaRegUser } from 'react-icons/fa';
 import { RiLockPasswordLine } from 'react-icons/ri';
+import { useAuth } from '../hooks/useAuth';
 
 const RegisterForm: React.FC = () => {
   const [name, setName] = useState('');
@@ -10,6 +11,7 @@ const RegisterForm: React.FC = () => {
   const [password, setPassword] = useState('');
   const [, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,6 +26,7 @@ const RegisterForm: React.FC = () => {
         }
       );
       console.log('Registro exitoso:', response.data);
+      await login({ email, password });
       navigate('/board');
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {

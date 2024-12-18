@@ -22,7 +22,7 @@ function HeaderHome() {
               <div className="flex flex-col sm:flex-row justify-center items-center mt-4">
                 
                 <div className="sm:ml-2">
-                  <Link to="/login"> 
+                  <Link to="/register"> 
                     <Button className="bg-blue-900 hover:bg-white m-2 hover:text-blue-900 text-white font-bold">
                       Regístrate
                     </Button>

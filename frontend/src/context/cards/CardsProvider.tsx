@@ -26,6 +26,7 @@ const CardsProvider = ({ children }: { children: ReactNode }) => {
   const createCard = async (
     newCard: Omit<Card, "id" | "createdAt" | "updatedAt">
   ) => {
+    console.log(newCard);
     const data = await createCardService(newCard); // Llamada a tu servicio para crear la tarjeta
     return data;
   };
