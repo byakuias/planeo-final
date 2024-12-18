@@ -1,10 +1,10 @@
-import { LoginData } from "../types/types";
+import { LoginData, User } from "../types/types";
 import { CustomError } from "../utils/customError"; // Importa el CustomError
 
 // Verificar la sesión del usuario
 export const checkSession = async (): Promise<{
   message: string;
-  user: LoginData;
+  user: User;
 }> => {
   try {
     const response = await fetch("http://localhost:3000/verifySession", {
@@ -34,7 +34,7 @@ export const checkSession = async (): Promise<{
 };
 
 // Login del usuario
-export const loginService = async (data: LoginData): Promise<void> => {
+export const loginService = async (data: LoginData) => {
   try {
     const response = await fetch("http://localhost:3000/users/login", {
       method: "POST",
@@ -54,7 +54,7 @@ export const loginService = async (data: LoginData): Promise<void> => {
       "Error desconocido en el login",
       "UNKNOWN_ERROR",
       500
-    ); // Error genérico
+    ); 
   }
 };
 

@@ -62,6 +62,7 @@ async function register(req: Request, res: Response) {
 }
 
 async function login(req: Request, res: Response) {
+  console.log(req.body)
   const { success, data: loginUser, error } = LoginSchema.safeParse(req.body);
   if (!success) {
     throw new ValidationError(error);
@@ -80,6 +81,7 @@ async function login(req: Request, res: Response) {
     loginUser.password,
     user.password
   );
+
   
   if (!isPasswordCorrect) {
     throw new HttpError(404, 'Email or password incorrect');

@@ -33,3 +33,11 @@ export type Project = {
   id: number;
   name: string;
 }
+
+
+export type User = {
+  id: number;
+  name: string;
+  iat: number;
+  exp: number;
+}

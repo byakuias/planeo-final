@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import styles from "./CreateButton.module.css";
 import { Project } from "../../../types/types";
+import { useAuth } from "../../../hooks/useAuth";
 
 interface Props {
   addProject: (project: Project) => void;
 }
 
 const CreateButton = ({ addProject }: Props) => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [projectName, setProjectName] = useState<string>("");
+    const { userLogged } = useAuth();
+
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [projectName, setProjectName] = useState<string>("");
 
   const handleCreateProjectClick = () => {
     setIsModalOpen(true);
@@ -29,7 +32,7 @@ const CreateButton = ({ addProject }: Props) => {
     }
 
     try {
-      const userId = 11; //pasariamos el userID del usuario logueado
+      const userId = userLogged?.id; //pasariamos el userID del usuario logueado
       const response = await fetch("http://localhost:3000/createProject", {
         method: "POST",
         headers: {

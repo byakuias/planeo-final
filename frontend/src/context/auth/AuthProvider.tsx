@@ -1,5 +1,5 @@
 import { useState, ReactNode, useEffect } from "react";
-import { LoginData } from "../../types/types";
+import { LoginData, Project, User } from "../../types/types";
 import {
   checkSession,
   loginService,
@@ -8,41 +8,48 @@ import {
 import AuthContext from "./AuthContext";
 import { useNavigate } from "react-router-dom";
 
-
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  // const [userName, setUserName] = useState<string | null>(null);
+  const [userLogged, setUserLogged] = useState<User | null>(null);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     checkSession()
       .then((data) => {
-        console.log(data)
-        setIsAuthenticated(true);
+        console.log(data);
+        setUserLogged(data.user);
       })
-      .catch(() => setIsAuthenticated(false));
+      .catch(() => setUserLogged(null));
   }, []);
 
-  const login = (data: LoginData): Promise<void> => {
-   return loginService(data)
-      .then(() => setIsAuthenticated(true))
+  const login = (data: LoginData) => {
+    localStorage.setItem("activeProject", JSON.stringify({ id: null, name:"" }))
+    return loginService(data)
+      .then(() =>
+        checkSession().then((data) => {
+          setUserLogged(data.user);
+        })
+      )
       .catch((error) => {
         alert(error.message || "Error al iniciar sesión");
-        throw error; 
+        throw error;
       });
+     
   };
 
   const logout = () => {
     logoutService()
-      .then(() => {setIsAuthenticated(false); checkSession()})
+      .then(() => setUserLogged(null))
       .catch((error) => {
         alert(error.message || "Error al cerrar sesión");
       });
-    navigate('/');
+    setActiveProject(null);
+    navigate("/");
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ userLogged, login, logout, activeProject, setActiveProject }}>
       {children}
     </AuthContext.Provider>
   );

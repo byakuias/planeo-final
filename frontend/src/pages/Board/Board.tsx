@@ -5,10 +5,13 @@ import Sidebar from "../../components/BoardComponents/Sidebar/Sidebar";
 import styles from "./Board.module.css";
 import { Project } from "../../types/types";
 import { Footer, Header } from "../../components";
+import { useAuth } from "../../hooks/useAuth";
 
 const Board = () => {
+
+  const { userLogged, setActiveProject, activeProject } = useAuth();
+
   const [projects, setProjects] = useState<Project[]>([]);
-  const [activeProject, setActiveProject] = useState<Project | null>(null);
 
   const handleDeleteProject = (projectId: number) => {
     setProjects((prevProjects) =>
@@ -35,7 +38,7 @@ const Board = () => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/getProjects/${2}`);
+        const response = await fetch(`http://localhost:3000/getProjects/${userLogged?.id}`);
 
         if (response.ok) {
           const data = await response.json();
@@ -56,7 +59,7 @@ const Board = () => {
     };
 
     fetchProject();
-  }, []);
+  }, [userLogged?.id, setActiveProject]);
 
   return (
     <>
@@ -71,7 +74,7 @@ const Board = () => {
           />
 
         <div className={styles.main}>
-          {projects.length > 0 && (
+          {projects.length > 0 && activeProject?.name !== "" && (
             <>
               <SecondaryNavbar projectName={activeProject?.name} />
               <Kanban projectId={activeProject?.id} />
