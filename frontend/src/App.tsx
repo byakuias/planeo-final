@@ -8,10 +8,12 @@ import Error404Page from './pages/Error404Page';
 import AuthProvider from './context/auth/AuthProvider';
 import CardsProvider from './context/cards/CardsProvider';
 import SobreNosotros from './pages/SobreNosotros';
+import Contact from './pages/Contact';
 // import PrivateRoute from "./components/PrivateRoute";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect, useLayoutEffect } from 'react';
+
 
 function App() {
   useEffect(() => {
@@ -37,6 +39,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+            <Route path="/Contact" element={<Contact />} />
             {/* <PrivateRoute> */}
             <Route path="/board" element={<Board />} />
             {/* </PrivateRoute> */}

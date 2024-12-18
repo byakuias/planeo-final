@@ -15,14 +15,14 @@ function Menu(props: MenuProps) {
   const classes = `
     ${
       sidebar
-        ? 'flex flex-col  p-4 gap-6 h-full'
-        : 'absolute top-8 right-4 flex gap-4 items-baseline'
+        ? 'flex flex-col   p-4 gap-6 h-full'
+        : 'absolute top-8 right-4 flex gap-4 '
     }
     ${vertical ? 'flex-col items-center' : ''}
     text-l font-bold ${className}
   `;
 
-  const menuClases = `hover:text-blue-500 hover:bg-white p-2`;
+  const menuClases = `hover:text-blue-500 hover:bg-white p-2 `;
 
   return (
     <nav className={classes}>
@@ -31,6 +31,9 @@ function Menu(props: MenuProps) {
       </NavLink>
       <NavLink to="/sobre-nosotros" className={menuClases}>
         Sobre Nosotros
+      </NavLink>
+      <NavLink to="/contact" className={menuClases}>
+        Contacto
       </NavLink>
       {isAuthenticated && (
         <NavLink to="/board" className={menuClases}>
@@ -53,7 +56,8 @@ function Menu(props: MenuProps) {
           Regístrate!
         </NavLink>
       )}
-      {isAuthenticated && <button className="flex items-center bg-pink-500 bg-opacity-65 text-white text-2xl p-1 rounded-md" onClick={logout}>
+      
+      {!isAuthenticated && <button className="flex items-center bg-pink-500 bg-opacity-65 text-white text-2xl p-1 px-2 rounded-sm" onClick={logout}>
         <AiOutlineLogout />
       </button>}
     </nav>

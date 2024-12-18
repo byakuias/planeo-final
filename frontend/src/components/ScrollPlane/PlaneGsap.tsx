@@ -45,7 +45,7 @@ const SvgAnimation: React.FC = () => {
       <div className="container relative w-[90vw] h-[90vh] flex flex-col items-center justify-evenly rounded-lg">
         {/* Texto animado */}
         <h1 className="animated-text text-white text-3xl font-bold absolute top-10">
-          Sigue el trayecto del avión
+        ¡Tu opinión nos importa!
         </h1>
 
         {/* SVG con animación */}
